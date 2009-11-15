@@ -20,7 +20,7 @@ begin
   # Demo.
   bleeker  = MultiProgressBar::Bar.new("bleeker", 100)
   montrose = MultiProgressBar::Bar.new("montrose", 100)
-  total    = MultiProgressBar::TotalBar.new("-Total-", [bleeker, montrose])
+  total    = MultiProgressBar::TotalBar.new("-Total-")
 
   until bleeker.current == bleeker.total && montrose.current == montrose.total
     sleep(0.1)

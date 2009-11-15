@@ -1,10 +1,10 @@
 module MultiProgressBar
   class TotalBar
-    def initialize(title, bars)
+    def initialize(title, bars = BARS)
       BARS << self
       @window = Ncurses::WINDOW.new(1, 0, BARS.index(self), 0)
 
-      @bars = bars
+      @bars = bars.reject { |bar| bar == self }
 
       total_total = @bars.inject(0) { |sum, bar| sum + bar.total }
       @renderer = BarRenderer.new(title, total_total, @window.getmaxx) do |bar|
@@ -12,7 +12,7 @@ module MultiProgressBar
         @window.refresh
       end
 
-      bars.each do |bar|
+      @bars.each do |bar|
         bar.observe do
           update_total
         end
