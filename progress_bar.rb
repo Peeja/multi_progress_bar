@@ -10,7 +10,7 @@ begin
   MultiProgressBar.start
 
   # Logging.
-  info_win = Ncurses::WINDOW.new(Ncurses.LINES-1, 0, 1, 0)
+  info_win = Ncurses::WINDOW.new(2, 0, 0, 0)
   info_win.scrollok(true)
   Kernel.send(:define_method, :log) do |msg|
     info_win.addstr("\n#{msg}")

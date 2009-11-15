@@ -3,14 +3,12 @@ module MultiProgressBar
     abstract
 
     def initialize(title, total)
-      BARS << self
-      @window = Ncurses::WINDOW.new(1, 0, BARS.index(self), 0)
+      MultiProgressBar.add_bar(self)
 
       @observers = []
 
-      @renderer = BarRenderer.new(title, total, @window.getmaxx) do |bar|
-        @window.addstr(bar)
-        @window.refresh
+      @renderer = BarRenderer.new(title, total, MultiProgressBar.width) do |rendered_bar|
+        MultiProgressBar.update_bar(self, rendered_bar)
       end
 
       super @renderer
