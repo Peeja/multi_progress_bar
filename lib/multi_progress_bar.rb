@@ -11,10 +11,17 @@ module MultiProgressBar
       @bars = [].freeze
       Ncurses.initscr
       @bars_window = Ncurses::WINDOW.new(1, 0, Ncurses.LINES-1, 0)
+      @log_window  = Ncurses::WINDOW.new(Ncurses.LINES-1, 0, 0, 0)
+      @log_window.scrollok(true)
     end
 
     def end
       Ncurses.endwin
+    end
+
+    def log(text)
+      @log_window.addstr("#{text}\n")
+      @log_window.refresh
     end
 
     def width
@@ -27,6 +34,9 @@ module MultiProgressBar
       @bars_window.mvwin(Ncurses.LINES-bars.size, @bars_window.getbegx)
       @bars_window.resize(bars.size, @bars_window.getmaxx)
       @bars_window.refresh
+
+      @log_window.resize(Ncurses.LINES-bars.size, @log_window.getmaxx)
+      @log_window.refresh
     end
 
     def update_bar(bar, rendered_bar)
