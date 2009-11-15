@@ -1,7 +1,12 @@
 #!/usr/local/bin/ruby -w
 
+# Not actually an example, but a script to run the example every
+# time a file changes, for testing.
+# 
+#   example/loop example/example.rb
+
 command = ARGV.shift
-file_patterns_to_watch = (ARGV.length > 0 ? ARGV : ['app/**/*', 'config/**/*', 'lib/**/*', 'test/**/*', 'spec/**/*', 'stories/**/*'])
+file_patterns_to_watch = (ARGV.length > 0 ? ARGV : ['**/*.rb'])
 
 files = {}
 
