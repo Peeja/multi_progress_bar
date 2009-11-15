@@ -9,7 +9,10 @@ module MultiProgressBar
 
     def start
       @bars = [].freeze
+
       Ncurses.initscr
+      Ncurses.curs_set(0)
+
       @bars_window = Ncurses::WINDOW.new(1, 0, Ncurses.LINES-1, 0)
       @log_window  = Ncurses::WINDOW.new(Ncurses.LINES-1, 0, 0, 0)
       @log_window.scrollok(true)
