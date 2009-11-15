@@ -2,30 +2,37 @@
 
 require 'rubygems'
 require 'ncurses'
+gem 'ruby-progressbar'
+require 'progressbar'
+
+$LOAD_PATH.unshift File.dirname(__FILE__)+"/lib"
+require 'multi_progress_bar/bar_renderer'
+
 
 begin
   Ncurses.initscr
 
-  # Draw a progress bar
-  # 
-  # 150/200       75%  [------------------|        ]  ETA: 00:11:05
+  info_win = Ncurses::WINDOW.new(Ncurses.LINES-1, 0, 1, 0)
+  info_win.scrollok(true)
 
-  ratio = 0.5
+  Kernel.send(:define_method, :log) do |msg|
+    info_win.addstr("\n#{msg}")
+    info_win.refresh
+  end
 
-  LEFT_WIDTH = 15
-  RIGHT_WIDTH = 15
-  
-  left  = "150/200 %3d%%  [" % (ratio*100)
-  right = "]  ETA: 00:11:05"
 
-  bar_width = Ncurses.COLS - left.size - right.size
-  filled_width = bar_width * ratio
-  bar = "#{"-"*(filled_width-1)}|#{" "*(bar_width-filled_width)}"
+  bar_window = Ncurses::WINDOW.new(1, 0, 0, 0)
 
-  Ncurses.addstr(left)
-  Ncurses.addstr(bar)
-  Ncurses.addstr(right)
-  Ncurses.refresh
+  bar_renderer = MultiProgressBar::BarRenderer.new("lapidge", 100, bar_window.getmaxx) do |bar|
+    bar_window.addstr(bar)
+    bar_window.refresh
+  end
+
+  # Demo.
+  until bar_renderer.current == bar_renderer.total do
+    sleep(0.1)
+    bar_renderer.inc(rand(5))
+  end
 ensure
   Ncurses.endwin
 end
