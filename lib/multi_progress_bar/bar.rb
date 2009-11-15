@@ -1,7 +1,10 @@
 module MultiProgressBar
   class Bar < DelegateClass(BarRenderer)
+    BARS = []
+
     def initialize(title, total)
-      @window = Ncurses::WINDOW.new(1, 0, 0, 0)
+      BARS << self
+      @window = Ncurses::WINDOW.new(1, 0, BARS.index(self), 0)
 
       renderer = BarRenderer.new(title, total, @window.getmaxx) do |bar|
         @window.addstr(bar)

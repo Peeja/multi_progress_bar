@@ -17,12 +17,13 @@ begin
     info_win.refresh
   end
 
-  bar = MultiProgressBar::Bar.new("lapidge", 100)
-
   # Demo.
-  until bar.current == bar.total do
+  bleeker  = MultiProgressBar::Bar.new("bleeker", 100)
+  montrose = MultiProgressBar::Bar.new("montrose", 100)
+  until bleeker.current == bleeker.total && montrose.current == montrose.total
     sleep(0.1)
-    bar.inc(rand(5))
+    bleeker.inc(rand(5))
+    montrose.inc(rand(5))
   end
 ensure
   MultiProgressBar.end
