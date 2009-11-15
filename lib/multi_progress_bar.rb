@@ -4,10 +4,11 @@ require 'delegate'
 require 'abstraction'
 
 module MultiProgressBar
-  BARS = []
-
   class << self
+    attr_reader :bars
+
     def start
+      @bars = [].freeze
       Ncurses.initscr
       @bars_window = Ncurses::WINDOW.new(1, 0, Ncurses.LINES-1, 0)
     end
@@ -21,15 +22,15 @@ module MultiProgressBar
     end
 
     def add_bar(bar)
-      BARS << bar
+      @bars += [bar]
 
-      @bars_window.mvwin(Ncurses.LINES-BARS.size, @bars_window.getbegx)
-      @bars_window.resize(BARS.size, @bars_window.getmaxx)
+      @bars_window.mvwin(Ncurses.LINES-bars.size, @bars_window.getbegx)
+      @bars_window.resize(bars.size, @bars_window.getmaxx)
       @bars_window.refresh
     end
 
     def update_bar(bar, rendered_bar)
-      @bars_window.move(BARS.index(bar), 0)
+      @bars_window.move(bars.index(bar), 0)
       @bars_window.addstr(rendered_bar)
       @bars_window.refresh
     end

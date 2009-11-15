@@ -1,6 +1,6 @@
 module MultiProgressBar
   class TotalBar < Bar
-    def initialize(title, bars = BARS.dup)
+    def initialize(title, bars = MultiProgressBar.bars.dup)
       @bars = bars
 
       @bars.each do |bar|
