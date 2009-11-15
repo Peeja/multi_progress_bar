@@ -1,5 +1,7 @@
 module MultiProgressBar
   class BarRenderer < ProgressBar
+    attr_writer :title
+
     def initialize(title, total, width, &block)
       @block = block
       @buffer = StringIO.new

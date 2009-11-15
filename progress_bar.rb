@@ -18,6 +18,7 @@ begin
     sleep(0.1)
     bleeker.inc(rand(10))
     montrose.inc(rand(5))
+    montrose.title = "montrose-#{rand(5)}"
     MultiProgressBar.log(rand(2000))
   end
 ensure
