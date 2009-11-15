@@ -10,15 +10,24 @@ begin
   MultiProgressBar.start
 
   # Demo.
-  bleeker  = MultiProgressBar::ProgressBar.new("bleeker", 100)
-  montrose = MultiProgressBar::ProgressBar.new("montrose", 100)
-  total    = MultiProgressBar::TotalBar.new("-Total-")
+  make_machine_bar = lambda { MultiProgressBar::ProgressBar.new("(Waiting...)", 100) }
+  machine_bars = [make_machine_bar[], make_machine_bar[]]
+  total = MultiProgressBar::TotalBar.new("-Total-")
 
-  until bleeker.current == bleeker.total && montrose.current == montrose.total
+  machine_names = ["bleeker", "montrose"]
+
+  until machine_bars.all? { |bar| bar.current == bar.total }
     sleep(0.1)
-    bleeker.inc(rand(10))
-    montrose.inc(rand(5))
-    montrose.title = "montrose-#{rand(5)}"
+
+    # Simulate machines becoming available.
+    machine_bars.each do |bar|
+      if bar.title == "(Waiting...)"
+        bar.title = machine_names.pop if rand(10) == 0
+      else
+        bar.inc(rand(10))
+      end
+    end
+
     MultiProgressBar.log(rand(2000))
   end
 ensure
