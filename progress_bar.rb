@@ -18,8 +18,8 @@ begin
   end
 
   # Demo.
-  bleeker  = MultiProgressBar::Bar.new("bleeker", 100)
-  montrose = MultiProgressBar::Bar.new("montrose", 100)
+  bleeker  = MultiProgressBar::ProgressBar.new("bleeker", 100)
+  montrose = MultiProgressBar::ProgressBar.new("montrose", 100)
   total    = MultiProgressBar::TotalBar.new("-Total-")
 
   until bleeker.current == bleeker.total && montrose.current == montrose.total

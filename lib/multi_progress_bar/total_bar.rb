@@ -1,22 +1,16 @@
 module MultiProgressBar
-  class TotalBar
-    def initialize(title, bars = BARS)
-      BARS << self
-      @window = Ncurses::WINDOW.new(1, 0, BARS.index(self), 0)
-
-      @bars = bars.reject { |bar| bar == self }
-
-      total_total = @bars.inject(0) { |sum, bar| sum + bar.total }
-      @renderer = BarRenderer.new(title, total_total, @window.getmaxx) do |bar|
-        @window.addstr(bar)
-        @window.refresh
-      end
+  class TotalBar < Bar
+    def initialize(title, bars = BARS.dup)
+      @bars = bars
 
       @bars.each do |bar|
         bar.observe do
           update_total
         end
       end
+
+      total_total = @bars.inject(0) { |sum, bar| sum + bar.total }
+      super title, total_total
     end
 
     private
