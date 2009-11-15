@@ -3,6 +3,8 @@ require 'progressbar'
 require 'delegate'
 
 module MultiProgressBar
+  BARS = []
+
   class << self
     def start
       Ncurses.initscr
@@ -16,3 +18,4 @@ end
 
 require 'multi_progress_bar/bar_renderer'
 require 'multi_progress_bar/bar'
+require 'multi_progress_bar/total_bar'

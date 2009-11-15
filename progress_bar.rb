@@ -20,9 +20,11 @@ begin
   # Demo.
   bleeker  = MultiProgressBar::Bar.new("bleeker", 100)
   montrose = MultiProgressBar::Bar.new("montrose", 100)
+  total    = MultiProgressBar::TotalBar.new("-Total-", [bleeker, montrose])
+
   until bleeker.current == bleeker.total && montrose.current == montrose.total
     sleep(0.1)
-    bleeker.inc(rand(5))
+    bleeker.inc(rand(10))
     montrose.inc(rand(5))
   end
 ensure
