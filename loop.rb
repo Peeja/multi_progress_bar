@@ -21,6 +21,8 @@ loop do
   system command
 
   loop do
+    sleep 0.1
+
     changed_file, last_changed = files.find { |file, last_changed|
       File.mtime(file) > last_changed
     }
