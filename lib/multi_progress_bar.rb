@@ -20,6 +20,7 @@ module MultiProgressBar
 
     def end
       Ncurses.endwin
+      puts
     end
 
     def log(text)
