@@ -1,0 +1,11 @@
+== MultiProgressBar
+
+Displays multiple progress bars using Ncurses.  Useful for displaying the status of multiple test runs, say, distributed across different machines.  Which is exactly why I wrote it.
+
+Uses +ruby-progressbar+ to render the bars.
+
+== Credits
+
+* Codes by Peter Jaros.
+* Thanks to Nick Evans for the inspiration (http://ekenosen.net/nick/devblog/2008/12/better-progress-bar-for-rspec/).
+* Thanks to Satoru Takabayashi for +ruby-progressbar+ (http://0xcc.net/ruby-progressbar/index.html.en).
