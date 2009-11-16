@@ -1,5 +1,5 @@
 module MultiProgressBar
-  class BarRenderer < ProgressBar
+  class BarRenderer < ProgressBar  #:nodoc:
     attr_writer :title
 
     def initialize(title, total, width, &block)

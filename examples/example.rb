@@ -10,7 +10,7 @@ begin
   MultiProgressBar.start
 
   # Demo.
-  make_machine_bar = lambda { MultiProgressBar::ProgressBar.new("(Waiting...)", 100) }
+  make_machine_bar = lambda { MultiProgressBar::Bar.new("(Waiting...)", 100) }
   machine_bars = [make_machine_bar[], make_machine_bar[]]
   total = MultiProgressBar::TotalBar.new("-Total-")
 
