@@ -7,6 +7,9 @@ begin
     gemspec.email = "peter.a.jaros@gmail.com"
     gemspec.homepage = "http://github.com/Peeja/multi_progress_bar/tree/master/"
     gemspec.authors = ["Peter Jaros"]
+
+    gemspec.add_dependency "ncurses"
+    gemspec.add_dependency "ruby-progressbar"
   end
 rescue LoadError
   puts "Jeweler not available. For gem tasks, install it with: sudo gem install jeweler"
