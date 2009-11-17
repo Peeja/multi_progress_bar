@@ -11,6 +11,7 @@ begin
     gemspec.add_dependency "ncurses"
     gemspec.add_dependency "ruby-progressbar"
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available. For gem tasks, install it with: sudo gem install jeweler"
 end
