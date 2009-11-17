@@ -1,7 +1,6 @@
 require 'ncurses'
 require 'progressbar'
 require 'delegate'
-require 'abstraction'
 
 module MultiProgressBar
   class << self
