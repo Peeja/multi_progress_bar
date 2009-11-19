@@ -1,7 +1,6 @@
 module MultiProgressBar
   class BarRenderer < ProgressBar  #:nodoc:
     attr_writer :total
-    attr_writer :title
 
     def initialize(title, total, width, &block)
       @block = block
@@ -14,6 +13,11 @@ module MultiProgressBar
       super
       @block.call(@buffer.string)
       @buffer.string = ""
+    end
+
+    def title=(new_title)
+      @title = new_title
+      show
     end
 
     def get_width
