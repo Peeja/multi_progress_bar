@@ -1,5 +1,6 @@
 module MultiProgressBar
   class BarRenderer < ProgressBar  #:nodoc:
+    attr_writer :total
     attr_writer :title
 
     def initialize(title, total, width, &block)
@@ -17,6 +18,20 @@ module MultiProgressBar
 
     def get_width
       @width
+    end
+
+    def restart
+      set(0)
+      @start_time = Time.now
+      @previous_time = @start_time
+    end
+
+    def do_percentage
+      if @current.zero?
+        0
+      else
+        super
+      end
     end
   end
 end

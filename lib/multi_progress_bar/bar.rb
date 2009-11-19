@@ -41,6 +41,12 @@ module MultiProgressBar
       notify_observers
     end
 
+    # Set the progress to 100% and display elapsed time instead of ETA.
+    def finish
+      super
+      notify_observers
+    end
+
     def observe(&b)  #:nodoc:
       @observers << b
     end

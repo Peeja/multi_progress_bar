@@ -26,7 +26,11 @@ module MultiProgressBar
     private
     def update_total
       total_current = @bars.inject(0) { |sum, bar| sum + bar.current }
+      total_total   = @bars.inject(0) { |sum, bar| sum + bar.total }
+      finished      = @bars.all? { |bar| bar.finished? }
+      @renderer.total = total_total
       @renderer.set(total_current)
+      @renderer.finish if finished
     end
   end
 end
