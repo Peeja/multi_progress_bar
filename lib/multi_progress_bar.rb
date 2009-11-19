@@ -12,6 +12,9 @@ module MultiProgressBar
 
       Ncurses.initscr
       Ncurses.curs_set(0)
+      Ncurses.start_color
+
+      (0..7).each { |color_number| Ncurses.init_pair(color_number, color_number, Ncurses::COLOR_BLACK); }
 
       @bars_window = Ncurses::WINDOW.new(1, 0, Ncurses.LINES-1, 0)
       @log_window  = Ncurses::WINDOW.new(Ncurses.LINES-1, 0, 0, 0)
@@ -32,7 +35,19 @@ module MultiProgressBar
 
     # Write +text+ to the space above the progress bars.
     def log(text)
-      @log_window.addstr("#{text}\n")
+      text = text.to_s
+
+      # Parse ANSI escape codes.
+      text.scan(/([^\e]*)(?:\e\[(\d+.))?/) do |normal_text, code|
+        @log_window.addstr(normal_text)
+        case code
+          when /3(\d)m/
+            @log_window.attron(Ncurses.COLOR_PAIR($1.to_i))
+          when /0m/
+            @log_window.attron(Ncurses.COLOR_PAIR(7))
+        end
+      end
+      @log_window.addstr("\n")
       @log_window.refresh
     end
 
