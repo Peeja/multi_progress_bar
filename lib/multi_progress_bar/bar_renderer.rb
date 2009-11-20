@@ -9,6 +9,14 @@ module MultiProgressBar
       super(title, total, @buffer)
     end
 
+    def fmt_current
+      @current
+    end
+
+    def fmt_total
+      @total
+    end
+
     def show
       super
       @block.call(@buffer.string)

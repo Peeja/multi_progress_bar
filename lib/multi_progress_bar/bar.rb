@@ -15,6 +15,9 @@ module MultiProgressBar
   #
   # See the +ruby-progressbar+ gem (http://0xcc.net/ruby-progressbar/index.html.en)
   # for more details.
+  #
+  # MultiProgressBar::Bar makes two additional format arguments available: :current
+  # and :total.  These display the current and total values respectively.
   class Bar < DelegateClass(BarRenderer)
     # Create a new Bar with a +title+ and a +total+ value.
     def initialize(title, total)
