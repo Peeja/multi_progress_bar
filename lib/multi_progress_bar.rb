@@ -24,11 +24,7 @@ module MultiProgressBar
     # Restore the terminal to normal function.  Always call this before exiting.
     def end
       # Give an extra line below the output for the shell to prompt on.
-      @log_window.resize(@log_window.getmaxy-1, @log_window.getmaxx)
-      @bars_window.mvwin(@log_window.getmaxy-1, @bars_window.getbegx)
-      @bars_window.resize(@bars_window.getmaxy+1, @bars_window.getmaxx)
-      @log_window.refresh
-      @bars_window.refresh
+      add_bar(nil)
 
       Ncurses.endwin
     end
