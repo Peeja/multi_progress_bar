@@ -64,7 +64,9 @@ module MultiProgressBar
 
     def update_bar(bar, rendered_bar)  #:nodoc:
       @bars_window.move(bars.index(bar), 0)
+      @bars_window.attron(Ncurses.COLOR_PAIR(bar.color)) if bar.color
       @bars_window.addstr(rendered_bar)
+      @bars_window.attroff(Ncurses.COLOR_PAIR(bar.color)) if bar.color
       @bars_window.refresh
     end
   end

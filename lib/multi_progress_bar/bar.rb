@@ -19,6 +19,8 @@ module MultiProgressBar
   # MultiProgressBar::Bar makes two additional format arguments available: :current
   # and :total.  These display the current and total values respectively.
   class Bar < DelegateClass(BarRenderer)
+    attr_reader :color
+
     # Create a new Bar with a +title+ and a +total+ value.
     def initialize(title, total)
       MultiProgressBar.add_bar(self)
@@ -48,6 +50,11 @@ module MultiProgressBar
     def finish
       super
       notify_observers
+    end
+
+    def color=(color)
+      @color = color
+      show
     end
 
     def observe(&b)  #:nodoc:
