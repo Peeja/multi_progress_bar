@@ -19,6 +19,18 @@ module MultiProgressBar
       @bars_window = Ncurses::WINDOW.new(1, 0, Ncurses.LINES-1, 0)
       @log_window  = Ncurses::WINDOW.new(Ncurses.LINES-1, 0, 0, 0)
       @log_window.scrollok(true)
+
+      trap("SIGWINCH") do
+        Ncurses.endwin
+        Ncurses.refresh
+
+        refresh_window_positions
+
+        @bars.each do |bar|
+          bar.width = @bars_window.getmaxx
+          bar.show
+        end
+      end
     end
 
     # Restore the terminal to normal function.  Always call this before exiting.
@@ -51,15 +63,18 @@ module MultiProgressBar
       @bars_window.getmaxx
     end
 
-    def add_bar(bar)  #:nodoc:
-      @bars += [bar]
-
+    def refresh_window_positions
       @bars_window.mvwin(Ncurses.LINES-bars.size, @bars_window.getbegx)
       @bars_window.resize(bars.size, @bars_window.getmaxx)
       @bars_window.refresh
 
       @log_window.resize(Ncurses.LINES-bars.size, @log_window.getmaxx)
       @log_window.refresh
+    end
+
+    def add_bar(bar)  #:nodoc:
+      @bars += [bar]
+      refresh_window_positions
     end
 
     def update_bar(bar, rendered_bar)  #:nodoc:
