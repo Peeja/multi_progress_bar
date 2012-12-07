@@ -17,11 +17,7 @@ rescue LoadError
 end
 
 
-begin
-  require 'hanna/rdoctask'
-rescue LoadError
-  require 'rake/rdoctask'
-end
+require 'rdoc/task'
 
 desc 'Generate RDoc documentation.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
