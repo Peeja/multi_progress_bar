@@ -9,7 +9,7 @@ begin
     gemspec.authors = ["Peter Jaros"]
 
     gemspec.add_dependency "ncurses"
-    gemspec.add_dependency "ruby-progressbar"
+    gemspec.add_dependency "ruby-progressbar", "0.0.9"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
